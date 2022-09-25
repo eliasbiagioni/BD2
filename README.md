@@ -163,6 +163,11 @@ Para realizar el analisis, se realizara una comparación de tiempos entre la eje
 
 El objetivo de cada consulta es poder obtener, para cada ``Activity``, todos los ``DatasetMetadataSchema`` relacionados y gurdarlos en una variable ``tasks``. Para esto se debe realizar un recorrido en profundidad, desde cada ``Activity`` hasta el ultimo ``DatasetMetadataSchema`` relacionado. 
 
+Ambas bases de datos poseen:
+  - 491 ``Project``.
+  - 491 ``Activity`` (una por ``Project``).
+  - 2774 ``DatasetMetadataSchema`` (__N__ por ``Activity``).
+
 ### Tiempos de ejecucion - MongoDB
 
 Para ver el tiempo de ejecucion estimado para realizar la consulta, debemos:
@@ -183,6 +188,23 @@ db.activity.explain("executionStats").aggregate([{
 Como resultado podemos ver el tiempo estimado de ejecucion de la consulta:
 
 ![graph-lookup](https://user-images.githubusercontent.com/26801113/192168674-f6e5702c-d6f4-4b3c-a22a-1d0a9d00fa2c.png)
+
+En el campo ``executionTimeMillisEstimate`` vemos el tiempo de ejecución estimado de la consulta.
+
+### Tiempos de ejecucion - MongoDB
+
+Para ver el tiempo de ejecucion utilizado para realizar la consulta, debemos abrir el archivo de logs de las consultas de Neo4j. Este archivo se encuentra en ``<path_donde_se_clono_el_repo>/BD2/neo4j/logs/query.log``. Alli, podemos ver los logs de todas las consultas realizadas. Si nos dirigimos al final del archivo, podremos ir viendo las ultimas consultas que vayamos ejecutando. Cada detalle de la consulta se compone de 2 lineas:
+
+```
+2022-09-25 22:49:11.513+0000 INFO  Query started: id:294 - 1 ms: (planning: 1, cpu: 0, waiting: 0) - 0 B - 0 page hits, 0 page faults - bolt-session	bolt	neo4j-browser/v4.4.6		client/192.168.64.1:48206	server/192.168.64.2:7687>	system - neo4j - CALL dbms.showCurrentUser() - {} - runtime=null - {type: 'system', app: 'neo4j-browser_v4.4.6'}
+
+2022-09-25 22:49:11.526+0000 INFO  id:294 - 14 ms: (planning: 7, cpu: 5, waiting: 0) - -1 B - 0 page hits, 0 page faults - bolt-session	bolt	neo4j-browser/v4.4.6		client/192.168.64.1:48206	server/192.168.64.2:7687>	system - neo4j - CALL dbms.showCurrentUser() - {} - runtime=system - {type: 'system', app: 'neo4j-browser_v4.4.6'}
+```
+
+La linea que nos interesa es la segunda, ya que alli vemos el tiempo de ejecución de la consulta. El tiempo de ejecucion de cada consulta es el siguiente:
+
+
+
 
 Neo4j: de 110ms a 450ms
 MongoDB: de 430ms a 1090ms
