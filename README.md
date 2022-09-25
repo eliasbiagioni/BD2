@@ -125,6 +125,8 @@ Para poder realizar la demostracion, se utilizara un modelo simple, extraido del
 
 ### Modelo
 
+![model](https://user-images.githubusercontent.com/26801113/192168339-d8b060bd-dda3-4214-a5e1-484f29b23115.png)
+
 Como vemos en el modelo:
 - cada ``Project`` puede tener muchas ``Activity``.
 - cada ``Activity`` puede tener un ``DatasetMetadataSchema``.
@@ -179,6 +181,8 @@ db.activity.explain("executionStats").aggregate([{
 }])
 ```
 Como resultado podemos ver el tiempo estimado de ejecucion de la consulta:
+
+![graph-lookup](https://user-images.githubusercontent.com/26801113/192168674-f6e5702c-d6f4-4b3c-a22a-1d0a9d00fa2c.png)
 
 Neo4j: de 110ms a 450ms
 MongoDB: de 430ms a 1090ms
