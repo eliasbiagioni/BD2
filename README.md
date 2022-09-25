@@ -25,6 +25,8 @@ abierto, que proporciona un backend transaccional compatible con ACID
 para sus aplicaciones. Almacenar nodos relacionados, aceleran las consultas. Es la  ́unica base de datos orientada a grafos para empresas que combina el almacenamiento
 nativo de grafos, la arquitectura escalable optimizada para la velocidad. La adyacencia libre de  ́ındices reduce el tiempo de lectura y mejora a ́un m ́as a medida que aumenta la complejidad de los datos. Se obtienen transacciones r ́apidas y fiables con un rendimiento ultra alto en paralelo, incluso cuando sus datos crezcan.
 
+![graph_db_simple_model](https://user-images.githubusercontent.com/26801113/192150060-c498bb61-44a1-4440-a461-eab164fe6d2f.jpg)
+
 Una de las diferencias es que en Neo4j las relaciones son parte de la base de datos, es decir, no es necesario calcularlas cada vez que necesitamos consultar nodos relacionados. En cambio en MongoDB, al no existir las relaciones entre documentos, estas deben ser calculadas en cada consulta que ejecutemos.
 
 Neo4j: de 110ms a 450ms
