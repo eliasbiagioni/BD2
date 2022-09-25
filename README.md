@@ -197,7 +197,6 @@ Para ver el tiempo de ejecucion utilizado para realizar la consulta, debemos abr
 
 ```
 2022-09-25 22:49:11.513+0000 INFO  Query started: id:294 - 1 ms: (planning: 1, cpu: 0, waiting: 0) - 0 B - 0 page hits, 0 page faults - bolt-session	bolt	neo4j-browser/v4.4.6		client/192.168.64.1:48206	server/192.168.64.2:7687>	system - neo4j - CALL dbms.showCurrentUser() - {} - runtime=null - {type: 'system', app: 'neo4j-browser_v4.4.6'}
-
 2022-09-25 22:49:11.526+0000 INFO  id:294 - 14 ms: (planning: 7, cpu: 5, waiting: 0) - -1 B - 0 page hits, 0 page faults - bolt-session	bolt	neo4j-browser/v4.4.6		client/192.168.64.1:48206	server/192.168.64.2:7687>	system - neo4j - CALL dbms.showCurrentUser() - {} - runtime=system - {type: 'system', app: 'neo4j-browser_v4.4.6'}
 ```
 
@@ -206,7 +205,19 @@ La linea que nos interesa es la segunda, ya que alli vemos el tiempo de ejecuci�
 ![time-neo4j](https://user-images.githubusercontent.com/26801113/192169281-8cca6191-ec8d-4f1c-87b3-4d6aa629fea5.png)
 
 
-Neo4j: de 110ms a 450ms
-MongoDB: de 430ms a 1090ms
+Para analizar el tiempo de ejecucion debemos:
+- Ingresar en la consola de Neo4j.
+- Ejecutar la consulta para obtener los resultados:
+```
+MATCH (activity:Activity)-[:NEXT_DATASET_METADATA_SCHEMA*]->(dms:DatasetMetadataSchema) 
+RETURN activity, COLLECT(dms) AS tasks;
+```
+- Observar el tiempo de ejecucion en el archivo ``query.log``
 
-Podemos observar que el tiempo de ejecucion mas lento obtenido en Neo4j, es casi el equivalente al tiempo estimado mas rapido de MongoDB.
+### Resultados
+
+ACLARACIÓN: para medir el tiempo de ejecucion en Neo4j, debemos ignorar el tiempo la primera vez que ejecutamos una consulta. Esto es por que, la primera vez, la consulta es planificada y guardada en una cache para ejecutarla de manera mas rapida a futuro.
+
+Luego de ejecutar repetidas veces las consultas para obtener los tiempos de ejecucion tanto en MongoDB como en Neo4j, obtengo que en MongoDB el tiempo estimado va entre 350ms y 365ms. Por el otro lado, en Neo4j, obtengo tiempos de ejecucion entre 32ms y 120ms.
+
+Como podemos ver, el peor tiempo de ejecucion obtenido en Neo4j (120ms) es incluso mejor que el mejor tiempo de ejecución de MongoDB (350ms). De esta manera, podemos ver que el recorrido de un grafo nativo, donde las relaciones estan almacenadas, nos da una mejora en tiempos de ejecución, en comparación con una base de datos (MongoDB) donde debemos calcular las relaciones en cada consulta.
