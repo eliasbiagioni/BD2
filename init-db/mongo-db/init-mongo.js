@@ -149,6 +149,6 @@ db.activity.explain("executionStats").aggregate([{
  * 
  * Tenga en cuenta que al menos la primera ejecución de la consulta puede ser más lenta que las ejecuciones posteriores, ya que la consulta deberá planificarse y es posible que la parte del grafo tocada no esté en el caché de página. Recomendamos descartar el primer tiempo de ejecución y luego ejecutar la consulta varias veces para obtener el mínimo o el promedio, según lo que busque.
  * 
- * match (p:Project)-[:ACTIVITIES]->(a:Activity)-[:NEXT_DATASET_METADATA_SCHEMA*]->(dms:DatasetMetadataSchema) return p, collect(dms);
+ * match (a:Activity)-[:NEXT_DATASET_METADATA_SCHEMA*]->(dms:DatasetMetadataSchema) return p, collect(dms) as tasks;
 https://neo4j.com/docs/operations-manual/current/monitoring/logging/#query-logging
  */
