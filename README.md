@@ -203,7 +203,7 @@ Para ver el tiempo de ejecucion utilizado para realizar la consulta, debemos abr
 
 La linea que nos interesa es la segunda, ya que alli vemos el tiempo de ejecución de la consulta. El tiempo de ejecucion de cada consulta es el siguiente:
 
-
+![time-neo4j](https://user-images.githubusercontent.com/26801113/192169281-8cca6191-ec8d-4f1c-87b3-4d6aa629fea5.png)
 
 
 Neo4j: de 110ms a 450ms
