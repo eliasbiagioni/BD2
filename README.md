@@ -191,7 +191,7 @@ Como resultado podemos ver el tiempo estimado de ejecución de la consulta:
 
 En el campo ``executionTimeMillisEstimate`` vemos el tiempo de ejecución estimado de la consulta.
 
-### Tiempos de ejecución - MongoDB
+### Tiempos de ejecución - Neo4j
 
 Para ver el tiempo de ejecución utilizado para realizar una consulta, debemos abrir el archivo de logs de las consultas de Neo4j. Este archivo se encuentra en ``<path_donde_se_clono_el_repo>/BD2/neo4j/logs/query.log``. Allí, podemos ver los logs de todas las consultas ejecutadas. Si nos dirigimos al final del archivo, podremos ir viendo las últimas consultas que vayamos ejecutando. Cada detalle de la consulta se compone de 2 líneas:
 
